@@ -13,7 +13,7 @@ function convertToPR(cards) {
   });
 }
 
-function getScore(ours, comm) {
+function getScore(ours, comm, round) {
   try {
     const rawScores = PokerRank.scoreHands(
       convertToPR(ours),
