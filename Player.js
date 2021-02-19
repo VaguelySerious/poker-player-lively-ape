@@ -29,6 +29,17 @@ const getScore = require("./scoring");
 //   }
 // }
 
+function basHeuristic(ours, comms, round) {
+  const highCardAmount = ours.map((o) => +o.rank).filter((o) => Number.isNaN(o))
+    .length;
+  if (highCardAmount > 1) {
+    return 100;
+  } else if (highCardAmount === 1) {
+    return 50;
+  } else {
+    return 0;
+  }
+}
 class Player {
   static get VERSION() {
     return "0.1";
@@ -44,7 +55,8 @@ class Player {
     const commCards = gs.community_cards;
 
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
-    const score = getScore(ourCards, commCards, gs.round);
+    // const score = getScore(ourCards, commCards, gs.round);
+    const score = basHeuristic(ourCards, commCards, gs.round);
     console.log("Score", score);
 
     if (score > 70) {
