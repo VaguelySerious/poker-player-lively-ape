@@ -58,7 +58,7 @@ class Player {
         console.log("Going all in");
         bet(ourStack);
       }
-    } else if (score > 0) {
+    } else if (score > 20) {
       console.log("Calling");
       bet(callAmount);
     } else {
@@ -67,7 +67,28 @@ class Player {
     }
   }
 
-  static showdown(gameState) {}
+  static showdown(gs) {
+    const us = gs.players[gs.in_action];
+    const ourCards = us.hole_cards;
+    const commCards = gs.community_cards;
+    const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
+    // const score = getScore(ourCards, commCards, gs.round);
+
+    const otherPlayers = gs.players.filter((p) => p != us);
+    const highestOtherStack = otherPlayers
+      .map((o) => o.stack)
+      .reduce((acc, a) => acc + a, 0);
+
+    const ourStack = us.stack;
+
+    if (ourStack >= highestOtherStack) {
+      console.log("Forcing others all in");
+      bet(highestOtherStack);
+    } else {
+      console.log("Going all in");
+      bet(ourStack);
+    }
+  }
 }
 
 module.exports = Player;
