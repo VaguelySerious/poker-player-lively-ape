@@ -48,7 +48,7 @@ class Player {
     const highestScore = getScore(ourCards, commCards, gs.round);
 
     if (highestScore < 10) {
-      const otherPlayers = gs.players((p) => p != us);
+      const otherPlayers = gs.players.filter((p) => p != us);
       const highestOtherStack = otherPlayers
         .map((o) => o.stack)
         .reduce((acc, a) => acc + a, 0);
