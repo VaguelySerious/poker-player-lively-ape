@@ -1,3 +1,5 @@
+const PokerRank = require("@rgerd/poker-rank");
+
 const suits = {
   h: "hearts",
   s: "spades",
@@ -25,6 +27,7 @@ function getScore(ours, comm, round) {
     console.log({ highestScore });
     return highestScore;
   } catch (e) {
+    console.log(e);
     return 20;
   }
 }

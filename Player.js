@@ -1,5 +1,33 @@
-const PokerRank = require("@rgerd/poker-rank");
 const getScore = require("./scoring");
+
+// {
+//   gs: {
+//     tournament_id: '550d1d68cd7bd10003000003',
+//     game_id: '550da1cb2d909006e90004b1',
+//     round: 0,
+//     bet_index: 0,
+//     small_blind: 10,
+//     current_buy_in: 320,
+//     pot: 400,
+//     minimum_raise: 240,
+//     dealer: 1,
+//     orbits: 7,
+//     in_action: 1,
+//     players: [ [Object], [Object], [Object] ],
+//     community_cards: [ [Object], [Object], [Object] ]
+//   }
+// }
+// {
+//   us: {
+//     id: 1,
+//     name: 'Bob',
+//     status: 'active',
+//     version: 'Default random player',
+//     stack: 1590,
+//     bet: 80,
+//     hole_cards: [ [Object], [Object] ]
+//   }
+// }
 
 class Player {
   static get VERSION() {
@@ -13,11 +41,9 @@ class Player {
       return;
     }
     const us = gs.players[gs.in_action];
-    console.log({ gs });
     const ourCards = us.hole_cards;
     const commCards = gs.community_cards;
 
-    console.log({ us });
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
     const highestScore = getScore(ourCards, commCards, gs.round);
 
