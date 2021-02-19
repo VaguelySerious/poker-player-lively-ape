@@ -7,7 +7,7 @@ class Player {
   }
 
   static betRequest(gs, bet) {
-    const us = gs.players[in_action];
+    const us = gs.players[gs.in_action];
     const ourCards = us.hole_cards;
     const commCards = gs.community_cards;
 
