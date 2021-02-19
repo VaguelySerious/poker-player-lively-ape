@@ -1,3 +1,5 @@
+const Player = require("./Player");
+
 const state = {
   round: 0,
   bet_index: 0,
@@ -59,3 +61,5 @@ const state = {
     },
   ],
 };
+
+Player._betRequest(state);

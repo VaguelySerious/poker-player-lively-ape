@@ -56,14 +56,14 @@ class Player {
       const ourStack = us.stack;
 
       if (ourStack >= highestOtherStack) {
-        console.log("Forcing others all in");
+        console.log("Forcing others all in", highestOtherStack);
         return highestOtherStack;
       } else {
-        console.log("Going all in");
+        console.log("Going all in", ourStack);
         return ourStack;
       }
     } else if (score > 20) {
-      console.log("Calling");
+      console.log("Calling", callAmount);
       return callAmount;
     } else {
       console.log("Call or fold");
