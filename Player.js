@@ -54,10 +54,6 @@ function badHeuristic(gs) {
   const callAmount = gs.current_buy_in - us.bet;
   const minimumRaise = gs.current_buy_in - us.bet + gs.minimum_raise;
 
-  if (us.stack === 0) {
-    return "allin";
-  }
-
   const cardScores = cards.map((c) => c.rank);
   const avgCardScore = Math.floor(
     cardScores.reduce((acc, a) => acc + a, 0) / 2
@@ -104,42 +100,34 @@ function badHeuristic(gs) {
     avgCardScore * 1 +
     triples * 40;
 
+  const alreadyBet = ["raise", "bigraise"].includes(previousAction);
   console.log("Winchance:", score);
 
-  if (!comms.length) {
-    if (handPair) {
-      return "allin";
-    }
-    if (highCardAmount == 2) {
-      if (previousAction !== "raise") {
-        return "raise";
-      }
-      return "call";
-    } else if (highCardAmount == 1) {
-      return "call";
-    } else {
-      if (callAmount < 50) {
-        return callAmount;
-      }
-      return "fold";
-    }
+  if (us.stack === 0) {
+    return "allin";
   }
-
-  if (pairs >= 3) {
+  if (score > 90) {
     return "allin";
-  } else if (pairs >= 2 || triples >= 1) {
-    return "allin";
-  } else if (pairs == 1) {
-    if (previousAction !== "raise") {
-      return "raise";
-    }
+  }
+  if (score > 80) {
+    return "bigraise";
+  }
+  if (score > 70 && !alreadyBet) {
+    return "bigraise";
+  }
+  if (score > 50 && !alreadyBet) {
+    return "raise";
+  }
+  if (score > 30 && callAmount < 100) {
     return "call";
-  } else {
-    if (callAmount < 50) {
-      return callAmount;
-    }
-    return "fold";
   }
+  if (score > 15 && callAmount < 30) {
+    return "call";
+  }
+  if (callAmount < 10) {
+    return "call";
+  }
+  return "fold";
 }
 
 class Player {
