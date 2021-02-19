@@ -29,6 +29,20 @@ const getScore = require("./scoring");
 //   }
 // }
 
+const valMap = {
+  A: 14,
+  K: 13,
+  Q: 12,
+  J: 11,
+};
+
+function getValue(card) {
+  if (Object.keys(valMap).some((key) => key === card.rank)) {
+    return valMap[card.rank];
+  }
+  return Number(card.rank);
+}
+
 function badHeuristic(gs) {
   const us = gs.players[gs.in_action];
   const cards = us.hole_cards;
@@ -39,12 +53,15 @@ function badHeuristic(gs) {
     return "allin";
   }
 
-  const otherPlayers = gs.players.filter((p) => p != us);
-  const highCardAmount = cards
-    .map((o) => +o.rank)
-    .filter((o) => Number.isNaN(o)).length;
-
+  const cardScores = cards.map(getValue);
+  const avgCardScore = Math.floor(
+    cardScores.reduce((acc, a) => acc + a, 0) / 2
+  );
   const handPair = cards[0].rank === cards[1].rank;
+  const highCardAmount = cardScores.filter((s) => s > 10).length;
+  console.log("We have", highCardAmount, "high cards");
+
+  const otherPlayers = gs.players.filter((p) => p != us);
 
   if (!comms.length) {
     if (handPair) {
