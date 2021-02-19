@@ -47,8 +47,10 @@ function badHeuristic(ours, comms, round) {
 
   console.log("Pairs", pairs);
 
-  if (pairs >= 2) {
+  if (pairs >= 3) {
     return 100;
+  } else if (pairs >= 2) {
+    return 90;
   } else if (pairs == 1) {
     return 50;
   } else {
