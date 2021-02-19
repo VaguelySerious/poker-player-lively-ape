@@ -71,7 +71,7 @@ function badHeuristic(gs) {
   console.log(`We have:
   - ${avgCardScore} Avg card score
   - ${highCardAmount} High cards
-  - ${handPair} Hand pairs
+  - Hand pair: ${handPair}
   - ${triples} Triples
   - ${pairs} Pairs
 `);
