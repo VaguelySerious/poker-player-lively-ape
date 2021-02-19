@@ -1,6 +1,6 @@
 curl -d 'action=check' localhost:1337
 
-curl -H "Content-Type: application/x-www-form-urlencoded" -d 'action=bet_request&game_state={
+curl -H "Content-Type: application/x-www-form-urlencoded" -d 'action=showdown&game_state={
     "tournament_id":"550d1d68cd7bd10003000003", 
     "game_id":"550da1cb2d909006e90004b1",       
     "round":0,                                  

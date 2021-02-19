@@ -69,11 +69,11 @@ class Player {
 
   static showdown(gs) {
     // Always call during showdown for now
-    const us = gs.players[gs.in_action];
-    console.log({ us, in_action });
-    const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
-    console.log("Calling in showdown", callAmount);
-    bet(callAmount);
+    // const us = gs.players[gs.in_action];
+    // console.log({ us, in_action });
+    // const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
+    // console.log("Calling in showdown", callAmount);
+    // bet(callAmount);
   }
 }
 
