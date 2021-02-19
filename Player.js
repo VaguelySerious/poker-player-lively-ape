@@ -173,7 +173,7 @@ class Player {
         return minimumRaise + 400;
       }
       console.log("Raising", minimumRaise);
-      return minimumRaise + 50;
+      return minimumRaise + 100;
     } else if (action === "call") {
       console.log("Calling", callAmount);
       return callAmount;
