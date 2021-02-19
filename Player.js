@@ -96,9 +96,9 @@ function badHeuristic(gs) {
 `);
 
   const score =
-    (!comms.length ? 50 : 0) +
-    straight * 80 +
-    flush * 90 +
+    (5 - comms.length) * 10 +
+    straight * 70 +
+    flush * 80 +
     pairs * 20 +
     highCardAmount * 8 +
     avgCardScore * 1 +
