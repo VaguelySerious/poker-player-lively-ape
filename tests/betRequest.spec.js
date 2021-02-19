@@ -1,4 +1,4 @@
-const { assert, expect } = require('chai')
+const { assert } = require('chai')
 const Player = require('../Player')
 
 function createState(holeCards, communityCards) {
@@ -53,10 +53,11 @@ function createState(holeCards, communityCards) {
 describe('bet', function () {
   describe('bet1', function () {
     const state = createState()
-    const result = Player._betRequest(createState())
+    const result = Player._betRequest(state)
     assert.isAtLeast(result, 400)
   })
-  describe('bet1', function () {
+
+  describe('bet2', function () {
     const holeCards = [
       {
         rank: '1',
@@ -68,11 +69,11 @@ describe('bet', function () {
       },
     ]
     const state = createState(holeCards)
-    const result = Player._betRequest(createState())
+    const result = Player._betRequest(state)
     assert.isAtLeast(result, 0)
   })
 
-  describe('bet1', function () {
+  describe('bet3', function () {
     const holeCards = [
       {
         rank: 'A',
@@ -84,7 +85,7 @@ describe('bet', function () {
       },
     ]
     const state = createState(holeCards)
-    const result = Player._betRequest(createState())
-    assert.isAtLeast(result, 500)
+    const result = Player._betRequest(state)
+    assert.isAtLeast(result, 480)
   })
 })
