@@ -6,6 +6,9 @@ const valMap = {
 }
 
 function convertCardsToNumbers(cards) {
+  if (cards.length === 0) {
+    return []
+  }
   return cards
     .map((card) => card.rank)
     .map((rank) => {
