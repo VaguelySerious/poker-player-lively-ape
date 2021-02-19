@@ -92,11 +92,11 @@ function badHeuristic(gs) {
     straight * 70 +
     flush * 80 +
     likelyFutureFlush * 30 +
-    likelyFutureStraight * 40 +
+    likelyFutureStraight * 35 +
     pairs * 20 +
     highCardAmount * 8 +
     avgCardScore * 1 +
-    triples * 60;
+    triples * 50;
 
   const alreadyBet = ["raise", "bigraise"].includes(previousAction);
 
@@ -122,10 +122,10 @@ We have:
   if (score > 70 && !alreadyBet) {
     return "bigraise";
   }
-  if (score > 50 && !alreadyBet) {
+  if (score > 30 && !alreadyBet) {
     return "raise";
   }
-  if (score > 30 && callAmount < 100) {
+  if (score > 20 && callAmount < 100) {
     return "call";
   }
   if (score > 15 && callAmount < 30 && !previousAction === "call") {
@@ -169,7 +169,15 @@ class Player {
         console.log("Going all in", us.stack);
         return us.stack;
       }
-    } else if (typeof action === "number" || action === "raise") {
+    } else if (
+      typeof action === "number" ||
+      action === "raise" ||
+      action === "bigraise"
+    ) {
+      if (action === "bigraise") {
+        console.log("Big raising", minimumRaise + 200);
+        return minimumRaise + 200;
+      }
       console.log("Raising", minimumRaise);
       return minimumRaise;
     } else if (action === "call") {
