@@ -37,10 +37,11 @@ const valMap = {
 };
 
 function getValue(card) {
-  if (Object.keys(valMap).some((key) => key === card.rank)) {
-    return valMap[card.rank];
-  }
-  return Number(card.rank);
+  const val = valMap[card.rank] || Number(card.rank);
+  return {
+    rank: val,
+    suit: card.suit,
+  };
 }
 
 let previousAction = null;
@@ -69,6 +70,8 @@ function badHeuristic(gs) {
 
   const pairs = matches.filter(Boolean).length + Number(handPair);
   const triples = matches.filter((m) => m > 1).length;
+  const all = cards.concat(comms).sort((a, b) => a.rank < b.rank);
+  console.log(all);
 
   console.log(`We have:
   - ${avgCardScore} Avg card score
@@ -95,7 +98,7 @@ function badHeuristic(gs) {
 
   if (pairs >= 3) {
     return "allin";
-  } else if (pairs >= 2) {
+  } else if (pairs >= 2 || triples >= 1) {
     return "allin";
   } else if (pairs == 1) {
     if (previousAction !== "raise") {
@@ -146,6 +149,9 @@ class Player {
       console.log("Calling", callAmount);
       return callAmount;
     } else {
+      if (callAmount < 50) {
+        return callAmount;
+      }
       return 0;
     }
   }
