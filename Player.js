@@ -110,11 +110,13 @@ function badHeuristic(gs) {
   if (us.bet === 0 && score < 60) {
     return "fold";
   }
-  if (us.bet < 5 && score < 52) {
-    return "fold";
-  }
-  if (us.bet < 3 && score < 45) {
-    return "fold";
+  if (us.stack > 50) {
+    if (us.bet < 5 && score < 52) {
+      return "fold";
+    }
+    if (us.bet < 3 && score < 45) {
+      return "fold";
+    }
   }
   if (us.stack === 0) {
     return "allin";
