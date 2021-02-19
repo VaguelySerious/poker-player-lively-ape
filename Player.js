@@ -62,7 +62,7 @@ function badHeuristic(gs) {
   const avgCardScore = Math.floor(
     cardScores.reduce((acc, a) => acc + a, 0) / 2
   );
-  const handPair = cards[0].rank === cards[1].rank;
+  const handPair = +cards[0].rank === cards[1].rank;
   const highCardAmount = cardScores.filter((s) => s > 10).length;
 
   const otherPlayers = gs.players.filter((p) => p != us);
@@ -70,15 +70,22 @@ function badHeuristic(gs) {
     (c) => comms.filter((c2) => c.rank === c2.rank).length
   );
 
-  const pairs = matches.filter(Boolean).length + Number(handPair);
+  const pairs = matches.filter(Boolean).length + handPair;
   const triples = matches.filter((m) => m > 1).length;
   const all = cards.concat(comms).sort((a, b) => a.rank - b.rank);
-  let straight = false;
   let lowest = all[0].rank;
   let inRow = 0;
-  // for () {
-
-  // }
+  for (let i = 1; i < all.length; i++) {
+    const cc = all[i];
+    if (cc.rank === lowest + 1) {
+      inRow++;
+    } else {
+      inRow = 0;
+    }
+    lowest = cc.rank;
+  }
+  const straight = Number(inRow === 4);
+  const flush = 0;
 
   console.log(`We have:
   - ${avgCardScore} Avg card score
@@ -87,6 +94,17 @@ function badHeuristic(gs) {
   - ${triples} Triples
   ${straight ? "- A straight!" : ""}
 `);
+
+  const score =
+    (!comms.length ? 50 : 0) +
+    straight * 80 +
+    flush * 90 +
+    pairs * 20 +
+    highCardAmount * 8 +
+    avgCardScore * 1 +
+    triples * 40;
+
+  console.log("Winchance:", score);
 
   if (!comms.length) {
     if (handPair) {

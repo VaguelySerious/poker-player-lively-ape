@@ -32,7 +32,7 @@ const state = {
           suit: "hearts",
         },
         {
-          rank: "A",
+          rank: "K",
           suit: "spades",
         },
       ],
