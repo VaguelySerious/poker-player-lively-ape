@@ -35,6 +35,10 @@ class Player {
   }
 
   static betRequest(gs, bet) {
+    bet(this._betRequest(gs));
+  }
+
+  static _betRequest(gs) {
     const us = gs.players[gs.in_action];
     const ourCards = us.hole_cards;
     const commCards = gs.community_cards;
@@ -53,17 +57,17 @@ class Player {
 
       if (ourStack >= highestOtherStack) {
         console.log("Forcing others all in");
-        bet(highestOtherStack);
+        return highestOtherStack;
       } else {
         console.log("Going all in");
-        bet(ourStack);
+        return ourStack;
       }
     } else if (score > 20) {
       console.log("Calling");
-      bet(callAmount);
+      return callAmount;
     } else {
       console.log("Call or fold");
-      bet(0);
+      return 0;
     }
   }
 
