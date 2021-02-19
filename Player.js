@@ -107,7 +107,7 @@ function badHeuristic(gs) {
   - ${triples} Triples${straight ? "\n-  A straight!" : ""}${
     flush ? "\n  - A FLUSH!" : ""
   }`);
-  if (us.bet === 0 && score < 50) {
+  if (us.bet === 0 && score < 55) {
     return "fold";
   }
   if (us.stack === 0) {
@@ -172,8 +172,8 @@ class Player {
       action === "bigraise"
     ) {
       if (action === "bigraise") {
-        console.log("Big raising", minimumRaise + 400);
-        return minimumRaise + 400;
+        console.log("Big raising", minimumRaise + 300);
+        return minimumRaise + 300;
       }
       console.log("Raising", minimumRaise);
       return minimumRaise + 100;
