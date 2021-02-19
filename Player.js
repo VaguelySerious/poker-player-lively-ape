@@ -45,7 +45,6 @@ function getValue(card) {
 }
 
 let previousAction = null;
-
 function badHeuristic(gs) {
   const us = gs.players[gs.in_action];
   const cards = us.hole_cards.map(getValue);
@@ -88,7 +87,7 @@ function badHeuristic(gs) {
   const likelyFutureFlush = !flush && comms.length <= 3 && flushChance >= 4;
 
   const score =
-    (5 - comms.length) * 10 +
+    (5 - comms.length) * 8 +
     straight * 70 +
     flush * 80 +
     likelyFutureFlush * 30 +
@@ -101,34 +100,29 @@ function badHeuristic(gs) {
   const alreadyBet = ["raise", "bigraise"].includes(previousAction);
 
   console.log(`
-We have:
-  - WINCHANCE: ${score}
+  - Winchance: ${score}
   - ${avgCardScore} Avg card score
   - ${highCardAmount} High cards
   - ${pairs} Pairs ${handPair ? "with a hand pair" : ""}
   - ${triples} Triples${straight ? "\n-  A straight!" : ""}${
     flush ? "\n  - A FLUSH!" : ""
   }`);
-
   if (us.stack === 0) {
     return "allin";
   }
-  if (score > 70) {
+  if (score > 90) {
     return "allin";
   }
-  if (score > 50 && !alreadyBet) {
+  if (score > 75 && !alreadyBet) {
     return "bigraise";
   }
-  if (score > 30 && !alreadyBet) {
+  if (score > 55 && !alreadyBet) {
     return "raise";
   }
-  if (score > 20 && callAmount < 100) {
+  if (score > 30 && callAmount < 100) {
     return "call";
   }
   if (score > 15 && callAmount < 30 && !previousAction === "call") {
-    return "call";
-  }
-  if (callAmount < 10) {
     return "call";
   }
   return "fold";
@@ -185,7 +179,9 @@ class Player {
     }
   }
 
-  static showdown(gs) {}
+  static showdown(gs) {
+    console.log(`RUNNING: ${currentVersion}`);
+  }
 }
 
 module.exports = Player;
