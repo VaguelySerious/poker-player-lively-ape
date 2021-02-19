@@ -178,11 +178,11 @@ class Player {
       action === "bigraise"
     ) {
       if (action === "bigraise") {
-        console.log("Big raising", minimumRaise + us.stack / 3);
-        return Math.floor(minimumRaise + us.stack / 3);
+        console.log("Big raising", minimumRaise + us.stack / 2.5);
+        return Math.floor(minimumRaise + us.stack / 2.5);
       }
-      console.log("Raising", minimumRaise + us.stack / 8);
-      return Math.floor(minimumRaise + us.stack / 8);
+      console.log("Raising", minimumRaise + us.stack / 6);
+      return Math.floor(minimumRaise + us.stack / 6);
     } else if (action === "call") {
       console.log("Calling", callAmount);
       return callAmount;
