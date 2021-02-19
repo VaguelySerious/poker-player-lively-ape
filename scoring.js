@@ -22,6 +22,7 @@ function getScore(ours, comm, round) {
     const highestScore = rawScores.map((rawScore) =>
       PokerRank.getBestHand(rawScore)
     );
+    return highestScore;
   } catch (e) {
     return 20;
   }
