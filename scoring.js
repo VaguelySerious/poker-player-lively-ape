@@ -1,5 +1,3 @@
-const PokerRank = require("@rgerd/poker-rank");
-
 const valMap = {
   A: 14,
   K: 13,
@@ -11,21 +9,12 @@ function toValue(rank) {
   return Number.isNaN(Number.parseInt(rank)) ? valMap[rank] : Number(rank);
 }
 
-function convertToPR(cards) {
-  return cards.map((c) => {
-    return {
-      value: toValue(c.rank),
-      suit: c.suit.slice(0, 1),
-    };
-  });
-}
+function detectPairs() {}
+
+function detectTriple() {}
 
 function getScore(ours, comm, round) {
   try {
-    // const rawScores = PokerRank.scoreHands(
-    //   convertToPR([ours]),
-    //   convertToPR(comm)
-    // );
     const score =
       15 -
       ours
@@ -37,7 +26,6 @@ function getScore(ours, comm, round) {
     // );
     return score;
   } catch (e) {
-    console.log(e);
     return 20;
   }
 }
