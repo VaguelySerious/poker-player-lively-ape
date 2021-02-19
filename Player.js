@@ -48,15 +48,17 @@ let previousAction = null;
 
 function badHeuristic(gs) {
   const us = gs.players[gs.in_action];
-  const cards = us.hole_cards;
-  const comms = gs.community_cards;
+  const cards = us.hole_cards.map(getValue);
+  const comms = gs.community_cards.map(getValue);
   const round = gs.round;
+  const callAmount = gs.current_buy_in - us.bet;
+  const minimumRaise = gs.current_buy_in - us.bet + gs.minimum_raise;
 
   if (us.stack === 0) {
     return "allin";
   }
 
-  const cardScores = cards.map(getValue);
+  const cardScores = cards.map((c) => c.rank);
   const avgCardScore = Math.floor(
     cardScores.reduce((acc, a) => acc + a, 0) / 2
   );
@@ -70,14 +72,20 @@ function badHeuristic(gs) {
 
   const pairs = matches.filter(Boolean).length + Number(handPair);
   const triples = matches.filter((m) => m > 1).length;
-  const all = cards.concat(comms).sort((a, b) => a.rank < b.rank);
-  console.log(all);
+  const all = cards.concat(comms).sort((a, b) => a.rank - b.rank);
+  let straight = false;
+  let lowest = all[0].rank;
+  let inRow = 0;
+  // for () {
+
+  // }
 
   console.log(`We have:
   - ${avgCardScore} Avg card score
   - ${highCardAmount} High cards
-  - ${triples} Triples
   - ${pairs} Pairs ${handPair ? "with a hand pair" : ""}
+  - ${triples} Triples
+  ${straight ? "- A straight!" : ""}
 `);
 
   if (!comms.length) {
@@ -92,6 +100,9 @@ function badHeuristic(gs) {
     } else if (highCardAmount == 1) {
       return "call";
     } else {
+      if (callAmount < 50) {
+        return callAmount;
+      }
       return "fold";
     }
   }
@@ -106,6 +117,9 @@ function badHeuristic(gs) {
     }
     return "call";
   } else {
+    if (callAmount < 50) {
+      return callAmount;
+    }
     return "fold";
   }
 }
@@ -149,9 +163,6 @@ class Player {
       console.log("Calling", callAmount);
       return callAmount;
     } else {
-      if (callAmount < 80) {
-        return callAmount;
-      }
       return 0;
     }
   }
