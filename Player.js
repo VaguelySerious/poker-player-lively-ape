@@ -81,6 +81,7 @@ function badHeuristic(gs) {
     lowest = cc.rank;
   }
   const straight = Number(inRow === 4);
+  const likelyFutureStraight = !straight && comms.length <= 3 && inRow === 3;
   const flushChance = all.filter((a) => a.suit === all[0].suit).length;
   const flush = flushChance >= 5;
   const likelyFutureFlush = !flush && comms.length <= 3 && flushChance >= 4;
@@ -90,6 +91,7 @@ function badHeuristic(gs) {
     straight * 70 +
     flush * 80 +
     likelyFutureFlush * 30 +
+    likelyFutureFlush * 40 +
     pairs * 20 +
     highCardAmount * 8 +
     avgCardScore * 1 +
