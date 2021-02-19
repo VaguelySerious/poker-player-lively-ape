@@ -1,5 +1,5 @@
-const PokerRank = require("poker-rank");
-const getScore = require("scoring");
+const PokerRank = require("@rgerd/poker-rank");
+const getScore = require("./scoring");
 
 class Player {
   static get VERSION() {
