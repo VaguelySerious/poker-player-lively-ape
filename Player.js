@@ -92,7 +92,7 @@ function badHeuristic(gs) {
     flush * 80 +
     likelyFutureFlush * 30 +
     likelyFutureStraight * 35 +
-    pairs * 20 +
+    pairs * 25 +
     highCardAmount * 8 +
     avgCardScore * 1 +
     triples * 50;
@@ -122,10 +122,10 @@ function badHeuristic(gs) {
   if (score > 45) {
     return "call";
   }
-  if (score > 30 && callAmount < 200 && previousAction !== "call") {
+  if (score > 30 && callAmount < 500) {
     return "call";
   }
-  if (score > 15 && callAmount < 80 && previousAction !== "call") {
+  if (score > 10 && callAmount < 100) {
     return "call";
   }
   return "fold";
