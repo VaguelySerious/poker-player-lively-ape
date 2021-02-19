@@ -113,13 +113,10 @@ We have:
   if (us.stack === 0) {
     return "allin";
   }
-  if (score > 90) {
+  if (score > 70) {
     return "allin";
   }
-  if (score > 80) {
-    return "bigraise";
-  }
-  if (score > 70 && !alreadyBet) {
+  if (score > 50 && !alreadyBet) {
     return "bigraise";
   }
   if (score > 30 && !alreadyBet) {
