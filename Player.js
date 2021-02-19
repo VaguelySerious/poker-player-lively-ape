@@ -57,14 +57,17 @@ class Player {
       const ourStack = us.stack;
 
       if (ourStack >= highestOtherStack) {
+        console.log("Forcing others all in");
         bet(highestOtherStack);
       } else {
+        console.log("Going all in");
         bet(ourStack);
       }
     } else if (gs.round < 4 && score < 19) {
-      // Think about raising later
+      console.log("Calling");
       bet(callAmount);
     } else {
+      console.log("Call or fold");
       bet(0);
     }
   }
