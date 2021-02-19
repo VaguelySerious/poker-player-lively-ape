@@ -43,6 +43,8 @@ function getValue(card) {
   return Number(card.rank);
 }
 
+let previousAction = null;
+
 function badHeuristic(gs) {
   const us = gs.players[gs.in_action];
   const cards = us.hole_cards;
@@ -67,7 +69,12 @@ function badHeuristic(gs) {
     if (handPair) {
       return "allin";
     }
-    if (highCardAmount >= 1) {
+    if (highCardAmount == 2) {
+      if (previousAction !== "raise") {
+        return "call";
+      }
+      return "raise";
+    } else if (highCardAmount == 1) {
       return "call";
     } else {
       return "fold";
@@ -85,7 +92,7 @@ function badHeuristic(gs) {
   } else if (pairs >= 2) {
     return "allin";
   } else if (pairs == 1) {
-    return "raise";
+    return "call";
   } else {
     return "fold";
   }
@@ -113,6 +120,7 @@ class Player {
 
     const action = badHeuristic(gs);
     console.log("Determined action", action);
+    previousAction = action;
 
     if (action === "allin") {
       console.log({ highestOtherStack });
