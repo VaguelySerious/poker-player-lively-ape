@@ -16,22 +16,32 @@ function convertCardsToNumbers(cards) {
     })
 }
 
-function toValue(rank) {
-  return Number.isNaN(Number.parseInt(rank)) ? valMap[rank] : Number(rank);
+function detectPairsOrBetter(ours, comm) {
+  const oursAsNumbers = convertCardsToNumbers(ours)
+  const commAsNumbers = convertCardsToNumbers(comm)
+  const allNumbers = [...oursAsNumbers, ...commAsNumbers]
+  let result = false
+  const s = new Set(allNumbers)
+  if (allNumbers.length !== s.size) {
+    result = true
+  }
+  return result
 }
 
-function detectPairs() {}
+function toValue(rank) {
+  return Number.isNaN(Number.parseInt(rank)) ? valMap[rank] : Number(rank)
+}
 
 function detectTriple() {}
 
 function getScore(ours, comm, round) {
   try {
-    return Math.floor(Math.random() * 100);
+    return Math.floor(Math.random() * 100)
     // return score;
   } catch (e) {
-    console.log(e);
-    return 50;
+    console.log(e)
+    return 50
   }
 }
 
-module.exports = getScore;
+module.exports = getScore
