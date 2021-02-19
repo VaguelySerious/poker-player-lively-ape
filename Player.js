@@ -17,7 +17,8 @@ class Player {
     const ourCards = us.hole_cards;
     const commCards = gs.community_cards;
 
-    const callAmount = gs.current_buy_in - us[bet] + gs.minimum_raise;
+    console.log({ us });
+    const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
     const highestScore = getScore(ourCards, commCards, gs.round);
 
     if (highestScore < 10) {
