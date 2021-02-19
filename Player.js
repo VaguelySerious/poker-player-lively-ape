@@ -45,9 +45,10 @@ class Player {
     const commCards = gs.community_cards;
 
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
-    const highestScore = getScore(ourCards, commCards, gs.round);
+    const score = getScore(ourCards, commCards, gs.round);
+    console.log({ score });
 
-    if (highestScore < 10) {
+    if (score < 10) {
       const otherPlayers = gs.players.filter((p) => p != us);
       const highestOtherStack = otherPlayers
         .map((o) => o.stack)
@@ -60,7 +61,7 @@ class Player {
       } else {
         bet(ourStack);
       }
-    } else if (gs.round < 4 && highestScore < 19) {
+    } else if (gs.round < 4 && score < 19) {
       // Think about raising later
       bet(callAmount);
     } else {

@@ -26,16 +26,16 @@ function getScore(ours, comm, round) {
     //   convertToPR([ours]),
     //   convertToPR(comm)
     // );
-    const rawScores =
+    const score =
       15 -
       ours
         .map((card) => toValue(card.rank))
         .reduce((acc, a) => (acc > a ? acc : a), 0);
-    console.log({ rawScores });
+    console.log({ score });
     // const highestScore = rawScores.map((rawScore) =>
     //   PokerRank.getBestHand(rawScore)
     // );
-    return rawScores;
+    return score;
   } catch (e) {
     console.log(e);
     return 20;
