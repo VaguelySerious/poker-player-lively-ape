@@ -5,6 +5,17 @@ const valMap = {
   J: 11,
 };
 
+function convertCardsToNumbers(cards) {
+  return cards
+    .map((card) => card.rank)
+    .map((rank) => {
+      if (Object.keys(valMap).some((key) => key === rank)) {
+        return valMap[rank]
+      }
+      return rank
+    })
+}
+
 function toValue(rank) {
   return Number.isNaN(Number.parseInt(rank)) ? valMap[rank] : Number(rank);
 }
