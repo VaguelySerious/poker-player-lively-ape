@@ -65,6 +65,7 @@ function badHeuristic(gs) {
   const matches = cards.map(
     (c) => comms.filter((c2) => c.rank === c2.rank).length
   );
+  // const highMatches;
 
   const pairs = matches.filter(Boolean).length + handPair;
   const triples = matches.filter((m) => m > 1).length;
@@ -95,7 +96,7 @@ function badHeuristic(gs) {
     pairs * 20 +
     highCardAmount * 8 +
     avgCardScore * 1 +
-    triples * 40;
+    triples * 60;
 
   const alreadyBet = ["raise", "bigraise"].includes(previousAction);
 
