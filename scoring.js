@@ -1,21 +1,23 @@
 const PokerRank = require("@rgerd/poker-rank");
 
-const suits = {
-  h: "hearts",
-  s: "spades",
-  c: "clubs",
-};
-
 function convertToPR(cards) {
   return cards.map((c) => {
     return {
-      rank: c.value,
-      suit: suits[c.suit],
+      rank: c.rank,
+      suit: c.suit.slice(0, 1),
     };
   });
 }
 
 function getScore(ours, comm, round) {
+  console.log({
+    ours,
+    comm,
+  });
+  console.log({
+    ours: convertToPR(ours),
+    comm: convertToPR(comm),
+  });
   try {
     const rawScores = PokerRank.scoreHands(
       convertToPR(ours),
