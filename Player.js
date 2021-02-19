@@ -45,15 +45,15 @@ function badHeuristic(ours, comms, round) {
     .map((c) => comms.find((c2) => c.rank === c2.rank))
     .filter(Boolean).length;
 
-  if (pairs.length >= 2) {
+  console.log("Pairs", pairs);
+
+  if (pairs >= 2) {
     return 100;
-  } else if (pairs.length == 2) {
+  } else if (pairs == 1) {
     return 50;
   } else {
     return 0;
   }
-
-  return 50;
 }
 class Player {
   static get VERSION() {
