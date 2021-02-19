@@ -116,13 +116,13 @@ function badHeuristic(gs) {
   if (score > 70 && !alreadyBet) {
     return "bigraise";
   }
-  if (score > 45 && !alreadyBet) {
+  if (score > 40 && !alreadyBet) {
     return "raise";
   }
-  if (score > 40) {
+  if (score > 30) {
     return "call";
   }
-  if (score > 30 && callAmount < 500) {
+  if (score > 20 && callAmount < 500) {
     return "call";
   }
   if (score > 10 && callAmount < 100) {
