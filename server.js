@@ -18,6 +18,7 @@ app.post("/", (req, res) => {
       break;
     case "bet_request":
       Player.betRequest(JSON.parse(game_state), function (bet) {
+        console.log("Bet", bet);
         res.json(bet);
       });
       break;
