@@ -33,7 +33,12 @@ function badHeuristic(ours, comms, round) {
   const highCardAmount = ours.map((o) => +o.rank).filter((o) => Number.isNaN(o))
     .length;
 
+  const handPair = ours[0].rank === ours[1].rank;
+
   if (!comms.length) {
+    if (handPair) {
+      return 90;
+    }
     if (highCardAmount >= 1) {
       return 50;
     } else {
@@ -57,6 +62,7 @@ function badHeuristic(ours, comms, round) {
     return 0;
   }
 }
+
 class Player {
   static get VERSION() {
     return "0.1";
