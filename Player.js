@@ -71,6 +71,7 @@ class Player {
     // Always call during showdown for now
     const us = gs.players[gs.in_action];
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
+    console.log("Calling in showdown", callAmount);
     bet(callAmount);
   }
 }
