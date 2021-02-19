@@ -107,7 +107,13 @@ function badHeuristic(gs) {
   - ${triples} Triples${straight ? "\n-  A straight!" : ""}${
     flush ? "\n  - A FLUSH!" : ""
   }`);
-  if (us.bet === 0 && score < 55) {
+  if (us.bet === 0 && score < 60) {
+    return "fold";
+  }
+  if (us.bet < 5 && score < 52) {
+    return "fold";
+  }
+  if (us.bet < 3 && score < 45) {
     return "fold";
   }
   if (us.stack === 0) {
