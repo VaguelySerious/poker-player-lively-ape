@@ -91,7 +91,7 @@ function badHeuristic(gs) {
     straight * 70 +
     flush * 80 +
     likelyFutureFlush * 30 +
-    likelyFutureFlush * 40 +
+    likelyFutureStraight * 40 +
     pairs * 20 +
     highCardAmount * 8 +
     avgCardScore * 1 +
