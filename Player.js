@@ -100,7 +100,7 @@ class Player {
         return highestOtherStack;
       } else {
         console.log("Going all in", us.stack);
-        return ourStack;
+        return us.stack;
       }
     } else if (action === "raise") {
       console.log("Raising", minimumRaise);
