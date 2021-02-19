@@ -29,37 +29,44 @@ const getScore = require("./scoring");
 //   }
 // }
 
-function badHeuristic(ours, comms, round) {
-  const highCardAmount = ours.map((o) => +o.rank).filter((o) => Number.isNaN(o))
-    .length;
+function badHeuristic(gs) {
+  const us = gs.players[gs.in_action];
+  const cards = us.hole_cards;
+  const comms = gs.community_cards;
+  const round = gs.round;
 
-  const handPair = ours[0].rank === ours[1].rank;
+  const otherPlayers = gs.players.filter((p) => p != us);
+  const highCardAmount = cards
+    .map((o) => +o.rank)
+    .filter((o) => Number.isNaN(o)).length;
+
+  const handPair = cards[0].rank === cards[1].rank;
 
   if (!comms.length) {
     if (handPair) {
-      return 90;
+      return "allin";
     }
     if (highCardAmount >= 1) {
-      return 50;
+      return "call";
     } else {
-      return 0;
+      return "fold";
     }
   }
 
   const pairs =
-    ours.map((c) => comms.find((c2) => c.rank === c2.rank)).filter(Boolean)
+    cards.map((c) => comms.find((c2) => c.rank === c2.rank)).filter(Boolean)
       .length + Number(handPair);
 
   console.log("Pairs", pairs);
 
   if (pairs >= 3) {
-    return 100;
+    return "allin";
   } else if (pairs >= 2) {
-    return 90;
+    return "allin";
   } else if (pairs == 1) {
-    return 50;
+    return "raise";
   } else {
-    return 0;
+    return "fold";
   }
 }
 
@@ -74,9 +81,6 @@ class Player {
 
   static _betRequest(gs) {
     const us = gs.players[gs.in_action];
-    const cards = us.hole_cards;
-    const shared = gs.community_cards;
-    const round = gs.round;
 
     const callAmount = gs.current_buy_in - us.bet;
     const minimumRaise = gs.current_buy_in - us.bet + gs.minimum_raise;
@@ -86,10 +90,11 @@ class Player {
       .map((o) => o.stack)
       .reduce((acc, a) => acc + a, 0);
 
-    const score = badHeuristic(cards, shared, round);
+    const action = badHeuristic(gs);
+    console.log("Determined action", action);
 
-    if (score > 70) {
-      console.log(highestOtherStack);
+    if (action === "allin") {
+      console.log({ highestOtherStack });
       if (us.stack >= highestOtherStack) {
         console.log("Forcing others all in", highestOtherStack);
         return highestOtherStack;
@@ -97,15 +102,13 @@ class Player {
         console.log("Going all in", us.stack);
         return ourStack;
       }
-    } else if (score > 20) {
+    } else if (action === "raise") {
+      console.log("Raising", minimumRaise);
+      return minimumRaise;
+    } else if (action === "call") {
       console.log("Calling", callAmount);
       return callAmount;
     } else {
-      // Always go with small bets, even with bad cards
-      if (callAmount < 50) {
-        return callAmount;
-      }
-      console.log("Call or fold");
       return 0;
     }
   }
