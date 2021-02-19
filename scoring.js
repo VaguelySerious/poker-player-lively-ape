@@ -3,7 +3,7 @@ const PokerRank = require("@rgerd/poker-rank");
 function convertToPR(cards) {
   return cards.map((c) => {
     return {
-      rank: c.rank,
+      value: c.rank,
       suit: c.suit.slice(0, 1),
     };
   });
