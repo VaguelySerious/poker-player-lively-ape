@@ -61,9 +61,20 @@ function badHeuristic(gs) {
   );
   const handPair = cards[0].rank === cards[1].rank;
   const highCardAmount = cardScores.filter((s) => s > 10).length;
-  console.log("We have", highCardAmount, "high cards");
+  const triples = 0;
 
   const otherPlayers = gs.players.filter((p) => p != us);
+  const pairs =
+    cards.map((c) => comms.find((c2) => c.rank === c2.rank)).filter(Boolean)
+      .length + Number(handPair);
+
+  console.log(`We have:
+  - ${avgCardScore} Avg card score
+  - ${highCardAmount} High cards
+  - ${handPair} Hand pairs
+  - ${triples} Triples
+  - ${pairs} Pairs
+`);
 
   if (!comms.length) {
     if (handPair) {
@@ -80,12 +91,6 @@ function badHeuristic(gs) {
       return "fold";
     }
   }
-
-  const pairs =
-    cards.map((c) => comms.find((c2) => c.rank === c2.rank)).filter(Boolean)
-      .length + Number(handPair);
-
-  console.log("Pairs", pairs);
 
   if (pairs >= 3) {
     return "allin";
@@ -123,7 +128,6 @@ class Player {
     previousAction = action;
 
     if (action === "allin") {
-      console.log({ highestOtherStack });
       if (us.stack >= highestOtherStack) {
         console.log("Forcing others all in", highestOtherStack);
         return highestOtherStack;
