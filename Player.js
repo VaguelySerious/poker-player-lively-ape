@@ -58,7 +58,7 @@ class Player {
         console.log("Going all in");
         bet(ourStack);
       }
-    } else if (score > 40) {
+    } else if (score > 0) {
       console.log("Calling");
       bet(callAmount);
     } else {
