@@ -15,18 +15,11 @@ function detectTriple() {}
 
 function getScore(ours, comm, round) {
   try {
-    const score =
-      15 -
-      ours
-        .map((card) => toValue(card.rank))
-        .reduce((acc, a) => (acc > a ? acc : a), 0);
-    console.log({ score });
-    // const highestScore = rawScores.map((rawScore) =>
-    //   PokerRank.getBestHand(rawScore)
-    // );
-    return score;
+    return Math.floor(Math.random() * 100);
+    // return score;
   } catch (e) {
-    return 20;
+    console.log(e);
+    return 50;
   }
 }
 
