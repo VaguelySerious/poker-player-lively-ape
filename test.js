@@ -18,7 +18,7 @@ const state = {
       hole_cards: [
         {
           rank: "6",
-          suit: "hearts",
+          suit: "spades",
         },
         {
           rank: "K",
@@ -38,11 +38,11 @@ const state = {
     },
     {
       rank: "A",
-      suit: "hearts",
+      suit: "spades",
     },
     {
       rank: "6",
-      suit: "clubs",
+      suit: "spades",
     },
   ],
 };

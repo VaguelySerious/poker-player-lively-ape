@@ -81,15 +81,7 @@ function badHeuristic(gs) {
     lowest = cc.rank;
   }
   const straight = Number(inRow === 4);
-  const flush = 0;
-
-  console.log(`We have:
-  - ${avgCardScore} Avg card score
-  - ${highCardAmount} High cards
-  - ${pairs} Pairs ${handPair ? "with a hand pair" : ""}
-  - ${triples} Triples
-  ${straight ? "- A straight!" : ""}
-`);
+  const flush = all.filter((a) => a.suit === all[0].suit).length >= 5;
 
   const score =
     (5 - comms.length) * 10 +
@@ -101,7 +93,16 @@ function badHeuristic(gs) {
     triples * 40;
 
   const alreadyBet = ["raise", "bigraise"].includes(previousAction);
-  console.log("Winchance:", score);
+
+  console.log(`
+We have:
+  - WINCHANCE: ${score}
+  - ${avgCardScore} Avg card score
+  - ${highCardAmount} High cards
+  - ${pairs} Pairs ${handPair ? "with a hand pair" : ""}
+  - ${triples} Triples${straight ? "\n-  A straight!" : ""}${
+    flush ? "\n  - A FLUSH!" : ""
+  }`);
 
   if (us.stack === 0) {
     return "allin";
@@ -121,7 +122,7 @@ function badHeuristic(gs) {
   if (score > 30 && callAmount < 100) {
     return "call";
   }
-  if (score > 15 && callAmount < 30) {
+  if (score > 15 && callAmount < 30 && !previousAction === "call") {
     return "call";
   }
   if (callAmount < 10) {
