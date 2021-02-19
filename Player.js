@@ -46,9 +46,9 @@ function badHeuristic(ours, comms, round) {
     }
   }
 
-  const pairs = ours
-    .map((c) => comms.find((c2) => c.rank === c2.rank))
-    .filter(Boolean).length;
+  const pairs =
+    ours.map((c) => comms.find((c2) => c.rank === c2.rank)).filter(Boolean)
+      .length + Number(handPair);
 
   console.log("Pairs", pairs);
 
@@ -90,6 +90,7 @@ class Player {
 
       const ourStack = us.stack;
 
+      console.log(highestOtherStack);
       if (ourStack >= highestOtherStack) {
         console.log("Forcing others all in", highestOtherStack);
         return highestOtherStack;
