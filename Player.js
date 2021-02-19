@@ -35,6 +35,10 @@ function badHeuristic(gs) {
   const comms = gs.community_cards;
   const round = gs.round;
 
+  if (us.stack === 0) {
+    return "allin";
+  }
+
   const otherPlayers = gs.players.filter((p) => p != us);
   const highCardAmount = cards
     .map((o) => +o.rank)
@@ -102,7 +106,7 @@ class Player {
         console.log("Going all in", us.stack);
         return us.stack;
       }
-    } else if (action === "raise") {
+    } else if (typeof action === "number" || action === "raise") {
       console.log("Raising", minimumRaise);
       return minimumRaise;
     } else if (action === "call") {
