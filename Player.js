@@ -149,7 +149,7 @@ class Player {
       console.log("Calling", callAmount);
       return callAmount;
     } else {
-      if (callAmount < 50) {
+      if (callAmount < 80) {
         return callAmount;
       }
       return 0;
