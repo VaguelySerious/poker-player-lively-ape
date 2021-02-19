@@ -7,7 +7,13 @@ class Player {
   }
 
   static betRequest(gs, bet) {
+    if (!gs) {
+      console.log("GameState undefined");
+      bet(0);
+      return;
+    }
     const us = gs.players[gs.in_action];
+    console.log({ gs });
     const ourCards = us.hole_cards;
     const commCards = gs.community_cards;
 
