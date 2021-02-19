@@ -5,10 +5,16 @@
   "engines": {
     "node": "6.x"
   },
+  "scripts": {
+    "lint": "npx eslint ."
+  },
   "private": true,
   "dependencies": {
     "@rgerd/poker-rank": "^1.0.1",
     "body-parser": "1.15.2",
     "express": "4.x"
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0"
   }
 }
