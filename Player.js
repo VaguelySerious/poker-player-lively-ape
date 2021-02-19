@@ -82,14 +82,14 @@ class Player {
     const score = badHeuristic(ourCards, commCards, gs.round);
     console.log("Score", score);
 
+    const otherPlayers = gs.players.filter((p) => p != us);
+    const highestOtherStack = otherPlayers
+      .map((o) => o.stack)
+      .reduce((acc, a) => acc + a, 0);
+
+    const ourStack = us.stack;
+
     if (score > 70) {
-      const otherPlayers = gs.players.filter((p) => p != us);
-      const highestOtherStack = otherPlayers
-        .map((o) => o.stack)
-        .reduce((acc, a) => acc + a, 0);
-
-      const ourStack = us.stack;
-
       console.log(highestOtherStack);
       if (ourStack >= highestOtherStack) {
         console.log("Forcing others all in", highestOtherStack);
@@ -102,6 +102,10 @@ class Player {
       console.log("Calling", callAmount);
       return callAmount;
     } else {
+      // Always go with small bets, even with bad cards
+      if (callAmount < 50) {
+        return callAmount;
+      }
       console.log("Call or fold");
       return 0;
     }
