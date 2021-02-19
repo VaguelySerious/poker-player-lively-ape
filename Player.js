@@ -61,12 +61,14 @@ function badHeuristic(gs) {
   );
   const handPair = cards[0].rank === cards[1].rank;
   const highCardAmount = cardScores.filter((s) => s > 10).length;
-  const triples = 0;
 
   const otherPlayers = gs.players.filter((p) => p != us);
-  const pairs =
-    cards.map((c) => comms.find((c2) => c.rank === c2.rank)).filter(Boolean)
-      .length + Number(handPair);
+  const matches = cards.map(
+    (c) => comms.filter((c2) => c.rank === c2.rank).length
+  );
+
+  const pairs = matches.filter(Boolean).length + Number(handPair);
+  const triples = matches.filter((m) => m > 1).length;
 
   console.log(`We have:
   - ${avgCardScore} Avg card score
@@ -81,9 +83,9 @@ function badHeuristic(gs) {
     }
     if (highCardAmount == 2) {
       if (previousAction !== "raise") {
-        return "call";
+        return "raise";
       }
-      return "raise";
+      return "call";
     } else if (highCardAmount == 1) {
       return "call";
     } else {
@@ -96,6 +98,9 @@ function badHeuristic(gs) {
   } else if (pairs >= 2) {
     return "allin";
   } else if (pairs == 1) {
+    if (previousAction !== "raise") {
+      return "raise";
+    }
     return "call";
   } else {
     return "fold";
