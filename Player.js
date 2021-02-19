@@ -71,9 +71,8 @@ function badHeuristic(gs) {
   console.log(`We have:
   - ${avgCardScore} Avg card score
   - ${highCardAmount} High cards
-  - Hand pair: ${handPair}
   - ${triples} Triples
-  - ${pairs} Pairs
+  - ${pairs} Pairs ${handPair ? "with a hand pair" : ""}
 `);
 
   if (!comms.length) {
