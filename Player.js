@@ -29,16 +29,31 @@ const getScore = require("./scoring");
 //   }
 // }
 
-function basHeuristic(ours, comms, round) {
+function badHeuristic(ours, comms, round) {
   const highCardAmount = ours.map((o) => +o.rank).filter((o) => Number.isNaN(o))
     .length;
-  if (highCardAmount > 1) {
+
+  if (!comms.length) {
+    if (highCardAmount >= 1) {
+      return 50;
+    } else {
+      return 0;
+    }
+  }
+
+  const pairs = ours
+    .map((c) => comms.find((c2) => c.rank === c2.rank))
+    .filter(Boolean).length;
+
+  if (pairs.length >= 2) {
     return 100;
-  } else if (highCardAmount === 1) {
+  } else if (pairs.length == 2) {
     return 50;
   } else {
     return 0;
   }
+
+  return 50;
 }
 class Player {
   static get VERSION() {
@@ -56,7 +71,7 @@ class Player {
 
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
     // const score = getScore(ourCards, commCards, gs.round);
-    const score = basHeuristic(ourCards, commCards, gs.round);
+    const score = badHeuristic(ourCards, commCards, gs.round);
     console.log("Score", score);
 
     if (score > 70) {

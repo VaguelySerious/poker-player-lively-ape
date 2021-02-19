@@ -32,7 +32,7 @@ const state = {
           suit: "hearts",
         },
         {
-          rank: "K",
+          rank: "A",
           suit: "spades",
         },
       ],
@@ -63,3 +63,4 @@ const state = {
 };
 
 Player._betRequest(state);
+Player._betRequest({ ...state, community_cards: [] });
