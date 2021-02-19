@@ -41,9 +41,9 @@ class Player {
 
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
     const score = getScore(ourCards, commCards, gs.round);
-    console.log({ score });
+    console.log("Score", score);
 
-    if (score < 10) {
+    if (score > 70) {
       const otherPlayers = gs.players.filter((p) => p != us);
       const highestOtherStack = otherPlayers
         .map((o) => o.stack)
@@ -58,7 +58,7 @@ class Player {
         console.log("Going all in");
         bet(ourStack);
       }
-    } else if (gs.round < 4 && score < 19) {
+    } else if (score > 40) {
       console.log("Calling");
       bet(callAmount);
     } else {

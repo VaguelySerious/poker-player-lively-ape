@@ -1,5 +1,3 @@
-const PokerRank = require("@rgerd/poker-rank");
-
 const valMap = {
   A: 14,
   K: 13,
@@ -22,23 +20,11 @@ function convertToPR(cards) {
 
 function getScore(ours, comm, round) {
   try {
-    // const rawScores = PokerRank.scoreHands(
-    //   convertToPR([ours]),
-    //   convertToPR(comm)
-    // );
-    const score =
-      15 -
-      ours
-        .map((card) => toValue(card.rank))
-        .reduce((acc, a) => (acc > a ? acc : a), 0);
-    console.log({ score });
-    // const highestScore = rawScores.map((rawScore) =>
-    //   PokerRank.getBestHand(rawScore)
-    // );
-    return score;
+    return Math.floor(Math.random() * 100);
+    // return score;
   } catch (e) {
     console.log(e);
-    return 20;
+    return 50;
   }
 }
 
