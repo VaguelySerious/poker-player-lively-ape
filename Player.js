@@ -122,10 +122,10 @@ function badHeuristic(gs) {
   if (score > 45) {
     return "call";
   }
-  if (score > 30 && callAmount < 100) {
+  if (score > 30 && callAmount < 200 && previousAction !== "call") {
     return "call";
   }
-  if (score > 15 && callAmount < 30 && !previousAction === "call") {
+  if (score > 15 && callAmount < 80 && previousAction !== "call") {
     return "call";
   }
   return "fold";
