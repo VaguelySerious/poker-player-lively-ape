@@ -133,7 +133,7 @@ function badHeuristic(gs) {
 
 class Player {
   static get VERSION() {
-    return "1.0";
+    return "berserker mode";
   }
 
   static betRequest(gs, bet) {
