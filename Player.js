@@ -87,7 +87,7 @@ function badHeuristic(gs) {
   const likelyFutureFlush = !flush && comms.length <= 3 && flushChance >= 4;
 
   const score =
-    (5 - comms.length) * 8 +
+    (5 - comms.length) * 6 +
     straight * 70 +
     flush * 80 +
     likelyFutureFlush * 30 +
@@ -107,19 +107,22 @@ function badHeuristic(gs) {
   - ${triples} Triples${straight ? "\n-  A straight!" : ""}${
     flush ? "\n  - A FLUSH!" : ""
   }`);
+  if (us.bet === 0 && score < 50) {
+    return "fold";
+  }
   if (us.stack === 0) {
     return "allin";
   }
   if (score > 80) {
     return "allin";
   }
-  if (score > 60 && !alreadyBet) {
+  if (score > 58 && !alreadyBet) {
     return "bigraise";
   }
   if (score > 38 && !alreadyBet) {
     return "raise";
   }
-  if (score > 30) {
+  if (score > 28) {
     return "call";
   }
   if (score > 20 && callAmount < 500) {
@@ -133,7 +136,7 @@ function badHeuristic(gs) {
 
 class Player {
   static get VERSION() {
-    return "berserker mode";
+    return "scared berseker";
   }
 
   static betRequest(gs, bet) {
