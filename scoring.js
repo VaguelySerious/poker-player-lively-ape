@@ -3,7 +3,7 @@ const valMap = {
   K: 13,
   Q: 12,
   J: 11,
-};
+}
 
 function convertCardsToNumbers(cards) {
   return cards
@@ -12,7 +12,7 @@ function convertCardsToNumbers(cards) {
       if (Object.keys(valMap).some((key) => key === rank)) {
         return valMap[rank]
       }
-      return rank
+      return Number(rank)
     })
 }
 
