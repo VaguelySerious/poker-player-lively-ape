@@ -182,9 +182,7 @@ class Player {
     }
   }
 
-  static showdown(gs) {
-    console.log(`RUNNING: ${currentVersion}`);
-  }
+  static showdown(gs) {}
 }
 
 module.exports = Player;
