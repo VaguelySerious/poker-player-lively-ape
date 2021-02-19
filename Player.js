@@ -119,7 +119,7 @@ function badHeuristic(gs) {
   if (score > 58 && !alreadyBet) {
     return "bigraise";
   }
-  if (score > 38 && !alreadyBet) {
+  if (score > 45 && !alreadyBet) {
     return "raise";
   }
   if (score > 28) {
@@ -175,7 +175,7 @@ class Player {
         console.log("Big raising", minimumRaise + us.stack / 3);
         return Math.floor(minimumRaise + us.stack / 3);
       }
-      console.log("Raising", minimumRaise);
+      console.log("Raising", minimumRaise + us.stack / 8);
       return Math.floor(minimumRaise + us.stack / 8);
     } else if (action === "call") {
       console.log("Calling", callAmount);
