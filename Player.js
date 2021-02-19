@@ -68,26 +68,10 @@ class Player {
   }
 
   static showdown(gs) {
+    // Always call during showdown for now
     const us = gs.players[gs.in_action];
-    const ourCards = us.hole_cards;
-    const commCards = gs.community_cards;
     const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
-    // const score = getScore(ourCards, commCards, gs.round);
-
-    const otherPlayers = gs.players.filter((p) => p != us);
-    const highestOtherStack = otherPlayers
-      .map((o) => o.stack)
-      .reduce((acc, a) => acc + a, 0);
-
-    const ourStack = us.stack;
-
-    if (ourStack >= highestOtherStack) {
-      console.log("Forcing others all in");
-      bet(highestOtherStack);
-    } else {
-      console.log("Going all in");
-      bet(ourStack);
-    }
+    bet(callAmount);
   }
 }
 
