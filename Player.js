@@ -74,28 +74,27 @@ class Player {
 
   static _betRequest(gs) {
     const us = gs.players[gs.in_action];
-    const ourCards = us.hole_cards;
-    const commCards = gs.community_cards;
+    const cards = us.hole_cards;
+    const shared = gs.community_cards;
+    const round = gs.round;
 
-    const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
-    // const score = getScore(ourCards, commCards, gs.round);
-    const score = badHeuristic(ourCards, commCards, gs.round);
-    console.log("Score", score);
+    const callAmount = gs.current_buy_in - us.bet;
+    const minimumRaise = gs.current_buy_in - us.bet + gs.minimum_raise;
 
     const otherPlayers = gs.players.filter((p) => p != us);
     const highestOtherStack = otherPlayers
       .map((o) => o.stack)
       .reduce((acc, a) => acc + a, 0);
 
-    const ourStack = us.stack;
+    const score = badHeuristic(cards, shared, round);
 
     if (score > 70) {
       console.log(highestOtherStack);
-      if (ourStack >= highestOtherStack) {
+      if (us.stack >= highestOtherStack) {
         console.log("Forcing others all in", highestOtherStack);
         return highestOtherStack;
       } else {
-        console.log("Going all in", ourStack);
+        console.log("Going all in", us.stack);
         return ourStack;
       }
     } else if (score > 20) {
@@ -111,14 +110,7 @@ class Player {
     }
   }
 
-  static showdown(gs) {
-    // Always call during showdown for now
-    // const us = gs.players[gs.in_action];
-    // console.log({ us, in_action });
-    // const callAmount = gs.current_buy_in - us.bet + gs.minimum_raise;
-    // console.log("Calling in showdown", callAmount);
-    // bet(callAmount);
-  }
+  static showdown(gs) {}
 }
 
 module.exports = Player;
